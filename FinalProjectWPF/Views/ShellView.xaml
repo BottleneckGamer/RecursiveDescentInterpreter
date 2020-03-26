@@ -1,0 +1,83 @@
+﻿<Window x:Class="FinalProjectWPF.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinalProjectWPF.Views"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:FinalProjectWPF.ViewModels"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Recursive Descent Interpreter" Icon="Icon.png" Height="700" Width="800" WindowStartupLocation="CenterScreen" >
+    <Window.Resources >
+        <Style x:Key="GridViewColumnHeaderStyle1" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="Black" Background="#FAEBD0">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="#515689" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#BEDAC7" FocusManager.FocusedElement ="{Binding ElementName=InputString}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="20"/>
+            <ColumnDefinition Width ="*"/>
+            <ColumnDefinition Width ="20"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height ="Auto"/>
+            <RowDefinition Height ="Auto"/>
+            <RowDefinition Height ="Auto"/>
+            <RowDefinition Height ="Auto"/>
+            <RowDefinition Height ="*"/>
+            <RowDefinition Height ="20"/>
+        </Grid.RowDefinitions>
+
+        <Label FontWeight ="Bold" Foreground ="#515689" Grid.Column ="1" Grid.Row ="1" Content="Line #          Content:" FontSize ="25"></Label>
+
+        <!--History Textbox-->
+        <TextBox Opacity ="30"   x:Name="Lines" FontWeight ="Bold" Foreground ="#515689" Background ="#FAEBD0" Grid.Column="1" Padding ="2,2,2,2" Grid.Row="2" Width ="750"  Height ="300"   FontSize ="30" TextWrapping="Wrap" VerticalAlignment ="Top"  HorizontalContentAlignment ="Left" VerticalContentAlignment ="Bottom" VerticalScrollBarVisibility ="Hidden"  AcceptsReturn ="True" IsReadOnly ="True" TextChanged="Lines_TextChanged"></TextBox>
+        <!--Current Entry Textbox-->
+        <TextBox FontWeight ="Bold"  Foreground ="#515689" Background ="#FAEBD0" Padding ="2,2,2,2"  Grid.Column="1" Grid.Row="3" Width ="750" Height ="50" VerticalAlignment ="Bottom" FontSize ="30" x:Name="InputString" TextWrapping="Wrap" HorizontalContentAlignment ="Left" VerticalContentAlignment ="Bottom"></TextBox>
+
+        <!--Line Status-->
+        <Label FontSize ="25" FontWeight ="Bold" Foreground ="#515689" Grid.Column ="1" Grid.Row ="4">Line Status:</Label>
+        <ListView  FontWeight ="Bold" Foreground ="#515689" Background ="#FAEBD0" x:Name="LineHistory" Grid.Column="1" Grid.Row ="5">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle ="{StaticResource GridViewColumnHeaderStyle1}">
+                    <GridViewColumn Header="Line #:" Width ="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding LineNumber,Mode =OneWay}"  Foreground ="#515689" Background ="#FAEBD0" Cursor="Hand" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Status: "  Width ="400" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Right"  Text="{Binding LineStatus,Mode =OneWay}"   Foreground ="#515689" Background ="#FAEBD0" Cursor="Hand" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
